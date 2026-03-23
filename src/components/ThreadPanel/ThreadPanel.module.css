@@ -1,0 +1,47 @@
+.panel {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  height: 100%;
+  background: var(--bg-surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--thread-transition), min-width var(--thread-transition);
+  flex-shrink: 0;
+}
+
+.panel.open {
+  width: var(--thread-panel-width);
+  min-width: var(--thread-panel-width);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 100;
+    width: 0;
+    box-shadow: none;
+    transition: width var(--thread-transition), box-shadow var(--thread-transition);
+  }
+
+  .panel.open {
+    width: min(var(--thread-panel-width), 100vw);
+    min-width: 0;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
+  }
+}

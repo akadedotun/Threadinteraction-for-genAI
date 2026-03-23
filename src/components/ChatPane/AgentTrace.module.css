@@ -1,0 +1,49 @@
+.trace {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-trace);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.separator {
+  color: var(--text-muted);
+  margin: 0 2px;
+  opacity: 0.5;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.label {
+  color: var(--text-trace);
+}
+
+.pulse {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  margin-left: 4px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}

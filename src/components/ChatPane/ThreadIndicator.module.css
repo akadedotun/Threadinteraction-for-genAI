@@ -1,0 +1,43 @@
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-thread-dim);
+  border: 1px solid rgba(34, 201, 160, 0.2);
+  color: var(--accent-thread);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.indicator:hover {
+  background: rgba(34, 201, 160, 0.2);
+  border-color: rgba(34, 201, 160, 0.35);
+}
+
+.count {
+  font-weight: 500;
+}
+
+.dot {
+  opacity: 0.5;
+}
+
+.time {
+  color: rgba(34, 201, 160, 0.7);
+}
+
+.viewLink {
+  margin-left: 4px;
+  color: var(--accent-thread);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.indicator:hover .viewLink {
+  opacity: 1;
+}
