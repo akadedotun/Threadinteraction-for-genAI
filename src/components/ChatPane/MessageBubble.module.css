@@ -1,8 +1,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 680px;
-  animation: none;
 }
 
 .wrapper.entering {
@@ -17,39 +15,40 @@
 .userWrapper {
   align-self: flex-end;
   align-items: flex-end;
+  max-width: 72%;
 }
 
 .aiWrapper {
   align-self: flex-start;
   align-items: flex-start;
+  max-width: 100%;
 }
 
-.bubble {
-  padding: 12px 16px;
-  border-radius: var(--radius-lg);
+/* User bubble — subtle dark pill, no color accent */
+.userBubble {
+  padding: 11px 16px;
+  border-radius: 18px;
+  border-bottom-right-radius: 5px;
+  background: #1e1e24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
   font-size: var(--text-msg);
   line-height: 1.65;
-  position: relative;
-  transition: border-left-color 0.2s;
 }
 
-.userBubble {
-  background: #1a1d2e;
-  border: 1px solid rgba(108, 99, 255, 0.2);
-  border-bottom-right-radius: var(--radius-sm);
-  color: var(--text-primary);
-}
-
+/* AI bubble — no background, just text */
 .aiBubble {
-  background: var(--bg-surface);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom-left-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  padding: 0;
   color: var(--text-primary);
+  font-size: var(--text-msg);
+  line-height: 1.7;
 }
 
 .activeThread {
-  border-left: 3px solid var(--accent-thread) !important;
-  background: rgba(34, 201, 160, 0.05) !important;
+  border-left: 2px solid rgba(232, 227, 220, 0.25) !important;
+  padding-left: 12px !important;
 }
 
 .pulseThread {
@@ -57,31 +56,67 @@
 }
 
 @keyframes threadPulse {
-  0% { box-shadow: 0 0 0 0 rgba(34, 201, 160, 0.3); }
-  70% { box-shadow: 0 0 0 6px rgba(34, 201, 160, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(34, 201, 160, 0); }
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 
+/* Content */
 .content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.para {
   margin: 0;
-  white-space: pre-wrap;
   word-break: break-word;
+}
+
+.heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 4px 0 2px;
+  line-height: 1.4;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.list li,
+.orderedList li {
+  line-height: 1.65;
+}
+
+.orderedList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .content strong {
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
 }
 
 .content em {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(232, 227, 220, 0.8);
 }
 
 .actionBar {
   opacity: 0;
   transition: opacity 0.15s ease;
   pointer-events: none;
+  margin-top: 4px;
 }
 
 .actionBarVisible {

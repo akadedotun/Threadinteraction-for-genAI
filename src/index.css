@@ -19,10 +19,10 @@
   --accent-thread-dim: rgba(34, 201, 160, 0.15);
   --accent-thread-glow: rgba(34, 201, 160, 0.3);
 
-  --text-primary: rgba(255, 255, 255, 0.92);
-  --text-secondary: rgba(255, 255, 255, 0.55);
-  --text-muted: rgba(255, 255, 255, 0.3);
-  --text-trace: rgba(255, 255, 255, 0.3);
+  --text-primary: #e8e3dc;
+  --text-secondary: rgba(232, 227, 220, 0.55);
+  --text-muted: rgba(232, 227, 220, 0.32);
+  --text-trace: rgba(232, 227, 220, 0.38);
 
   /* Typography */
   --font-ui: 'DM Sans', -apple-system, sans-serif;

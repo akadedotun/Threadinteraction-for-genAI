@@ -12,13 +12,7 @@ export default function Sidebar() {
     <aside className={styles.sidebar}>
       <div className={styles.header}>
         <div className={styles.logo}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="14" cy="14" r="9" stroke="#6c63ff" strokeWidth="2" fill="none"/>
-            <circle cx="14" cy="14" r="3" fill="#6c63ff"/>
-            <circle cx="14" cy="5" r="2" fill="#22c9a0"/>
-            <line x1="14" y1="7" x2="14" y2="11" stroke="#6c63ff" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-          <span className={styles.appName}>Orbit</span>
+          <span className={styles.appName}>MyAI</span>
         </div>
         <button className={styles.newChat}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -76,7 +70,7 @@ export default function Sidebar() {
         <div className={styles.avatar}>AY</div>
         <div className={styles.userInfo}>
           <span className={styles.userName}>Alex Y.</span>
-          <span className={styles.userPlan}>Orbit Pro</span>
+          <span className={styles.userPlan}>MyAI Pro</span>
         </div>
         <button className={styles.settingsBtn} title="Settings">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

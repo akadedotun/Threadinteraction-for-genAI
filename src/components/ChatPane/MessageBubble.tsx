@@ -14,26 +14,67 @@ interface Props {
   onThumbState: (messageId: string, state: 'up' | 'down' | null) => void;
 }
 
-function renderContent(text: string) {
+function inlineRender(text: string): React.ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
   return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i}>{part.slice(2, -2)}</strong>;
-    }
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={i}>{part.slice(1, -1)}</em>;
-    }
+    if (part.startsWith('**') && part.endsWith('**')) return <strong key={i}>{part.slice(2, -2)}</strong>;
+    if (part.startsWith('*') && part.endsWith('*')) return <em key={i}>{part.slice(1, -1)}</em>;
     return <span key={i}>{part}</span>;
   });
 }
 
-function renderLines(content: string) {
-  return content.split('\n').map((line, i) => (
-    <span key={i}>
-      {renderContent(line)}
-      {i < content.split('\n').length - 1 && <br />}
-    </span>
-  ));
+function renderMarkdown(content: string) {
+  const lines = content.split('\n');
+  const nodes: React.ReactNode[] = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+
+    // Blank line
+    if (line.trim() === '') {
+      i++;
+      continue;
+    }
+
+    // Heading: lines with only **text** or lines starting with ##
+    if (/^#{1,3}\s/.test(line)) {
+      const text = line.replace(/^#{1,3}\s/, '');
+      nodes.push(<h2 key={i} className={styles.heading}>{text}</h2>);
+      i++;
+      continue;
+    }
+
+    // Bullet list: lines starting with · or - or •
+    if (/^[·•\-]\s/.test(line)) {
+      const listItems: React.ReactNode[] = [];
+      while (i < lines.length && /^[·•\-]\s/.test(lines[i])) {
+        const itemText = lines[i].replace(/^[·•\-]\s/, '');
+        listItems.push(<li key={i}>{inlineRender(itemText)}</li>);
+        i++;
+      }
+      nodes.push(<ul key={`ul-${i}`} className={styles.list}>{listItems}</ul>);
+      continue;
+    }
+
+    // Numbered list
+    if (/^\d+\.\s/.test(line)) {
+      const listItems: React.ReactNode[] = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i])) {
+        const itemText = lines[i].replace(/^\d+\.\s/, '');
+        listItems.push(<li key={i}>{inlineRender(itemText)}</li>);
+        i++;
+      }
+      nodes.push(<ol key={`ol-${i}`} className={styles.orderedList}>{listItems}</ol>);
+      continue;
+    }
+
+    // Regular paragraph
+    nodes.push(<p key={i} className={styles.para}>{inlineRender(line)}</p>);
+    i++;
+  }
+
+  return nodes;
 }
 
 export default function MessageBubble({ message, thread, isActiveThread, onOpenThread, onThumbState }: Props) {
@@ -58,18 +99,9 @@ export default function MessageBubble({ message, thread, isActiveThread, onOpenT
   const isUser = message.role === 'user';
   const hasThread = Boolean(message.threadId && thread);
 
-  const handleThread = () => {
-    const originText = message.content.slice(0, 200);
-    onOpenThread(message.id, originText);
-  };
-
-  const handleThumbUp = () => {
-    onThumbState(message.id, message.thumbState === 'up' ? null : 'up');
-  };
-
-  const handleThumbDown = () => {
-    onThumbState(message.id, message.thumbState === 'down' ? null : 'down');
-  };
+  const handleThread = () => onOpenThread(message.id, message.content.slice(0, 200));
+  const handleThumbUp = () => onThumbState(message.id, message.thumbState === 'up' ? null : 'up');
+  const handleThumbDown = () => onThumbState(message.id, message.thumbState === 'down' ? null : 'down');
 
   return (
     <div
@@ -81,19 +113,16 @@ export default function MessageBubble({ message, thread, isActiveThread, onOpenT
         <AgentTrace steps={message.agentTrace} isGenerating={message.isGenerating} />
       )}
 
-      <div
-        className={`
-          ${styles.bubble}
-          ${isUser ? styles.userBubble : styles.aiBubble}
-          ${isActiveThread ? styles.activeThread : ''}
-          ${pulseThread ? styles.pulseThread : ''}
-        `}
-      >
-        {message.isGenerating && !message.content ? (
-          <TypingIndicator />
-        ) : (
-          <p className={styles.content}>{renderLines(message.content)}</p>
-        )}
+      <div className={`
+        ${styles.bubble}
+        ${isUser ? styles.userBubble : styles.aiBubble}
+        ${isActiveThread ? styles.activeThread : ''}
+        ${pulseThread ? styles.pulseThread : ''}
+      `}>
+        {message.isGenerating && !message.content
+          ? <TypingIndicator />
+          : <div className={styles.content}>{renderMarkdown(message.content)}</div>
+        }
       </div>
 
       {!isUser && !message.isGenerating && (

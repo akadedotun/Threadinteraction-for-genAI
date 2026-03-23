@@ -2,12 +2,12 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  margin-top: 6px;
-  padding: 4px 8px;
+  margin-top: 8px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
-  background: var(--accent-thread-dim);
-  border: 1px solid rgba(34, 201, 160, 0.2);
-  color: var(--accent-thread);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--text-secondary);
   font-size: 12px;
   font-family: var(--font-mono);
   cursor: pointer;
@@ -15,8 +15,9 @@
 }
 
 .indicator:hover {
-  background: rgba(34, 201, 160, 0.2);
-  border-color: rgba(34, 201, 160, 0.35);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--text-primary);
 }
 
 .count {
@@ -24,16 +25,16 @@
 }
 
 .dot {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .time {
-  color: rgba(34, 201, 160, 0.7);
+  color: var(--text-muted);
 }
 
 .viewLink {
-  margin-left: 4px;
-  color: var(--accent-thread);
+  margin-left: 3px;
+  color: var(--text-secondary);
   font-weight: 500;
   opacity: 0.8;
 }

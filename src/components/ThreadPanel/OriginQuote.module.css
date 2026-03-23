@@ -1,8 +1,8 @@
 .quote {
   margin: 12px 16px;
   padding: 10px 14px;
-  border-left: 3px solid var(--accent-thread);
-  background: var(--accent-thread-dim);
+  border-left: 2px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
